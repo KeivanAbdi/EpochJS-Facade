@@ -5,7 +5,9 @@ normalizedName := "epochjs-facade"
 
 organization := "com.keivanabdi"
 
-version := "0.1-SNAPSHOT"
+version := "0.1.0-SNAPSHOT"
+
+isSnapshot:=true
 
 scalaVersion := "2.12.4"
 
