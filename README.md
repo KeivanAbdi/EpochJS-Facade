@@ -88,7 +88,7 @@ val data1 = (
 jQuery("#basic-pie-example") epoch Chart(              
   data  = data1,                                       
   inner = Some(58.0)                                   
-)                                                      ```````                                                                                                                                  
+)                                                                                                                                                                                    
 ```
 * [Scatter Chart](http://epochjs.github.io/epoch/basic/#scatter)
 ```scala
