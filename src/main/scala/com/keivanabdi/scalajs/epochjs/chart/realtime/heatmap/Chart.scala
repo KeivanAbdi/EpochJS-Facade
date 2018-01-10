@@ -24,7 +24,7 @@ class Chart[Push <: FixedLength[_]](
     val buckets:              js.UndefOr[Int],
     val bucketRange:          js.UndefOr[js.Array[Int]],
     val bucketPadding:        js.UndefOr[Int],
-    val opacity:              js.UndefOr[js.Function2[Double, Double, String]],
+    val opacity:              js.UndefOr[js.Function2[Double, Double, Double]],
     val paintZeroValues:      js.UndefOr[Boolean]
 ) extends RealtimeChart1[Push]
     with DataCentered[Data]
@@ -50,7 +50,7 @@ object Chart {
       buckets:         Option[Int] = None,
       bucketRange:     Option[(Int, Int)] = None,
       bucketPadding:   Option[Int] = None,
-      opacity:         Option[(Double, Double) => String] = None,
+      opacity:         Option[(Double, Double) => Double] = None,
       paintZeroValues: Option[Boolean] = None
   ): Chart[Push] = new Chart[Push](
     "time.heatmap",
