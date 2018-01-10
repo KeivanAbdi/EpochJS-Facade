@@ -41,7 +41,7 @@ val data1 = (
 jQuery("#basic-area-example") epoch Chart(               
   data = data1,                                          
   axes = Some(Seq(Ax.bottom, Ax.left, Ax.right))         
-)                                                                                                                                                                                                                                                                                                                                           
+)
 ```
 
 * [Bar Chart](http://epochjs.github.io/epoch/basic/#bar)
@@ -74,7 +74,7 @@ val data1 = Data(
 )                                                       
 jQuery("#basic-line-example") epoch Chart(              
   data = data1                                          
-)                                                                                                                                            
+)
 ```
 * [Pie Chart](http://epochjs.github.io/epoch/basic/#pie)
 ```scala
@@ -88,7 +88,7 @@ val data1 = (
 jQuery("#basic-pie-example") epoch Chart(              
   data  = data1,                                       
   inner = Some(58.0)                                   
-)                                                                                                                                                                                    
+)
 ```
 * [Scatter Chart](http://epochjs.github.io/epoch/basic/#scatter)
 ```scala
@@ -110,7 +110,7 @@ val data1 = (
 )                                                          
 jQuery("#basic-scatter-example") epoch Chart(              
   data = data1                                             
-)                                                                                                                                                                                                                                             
+)
 ```
 <br />
 
@@ -157,7 +157,7 @@ scalajs.dom.window.setInterval(
     )                                   
   },                                    
   1000                                  
-)                                                                                                                                                                                                                                                                                                                                                                                                          
+)
 ```
 * [Bar Chart](http://epochjs.github.io/epoch/real-time/#bar)
 ```scala
@@ -201,7 +201,7 @@ scalajs.dom.window.setInterval(
     )                                   
   },                                    
   1000                                  
-)                                                                                                                                                                                                                                                                                                                                                                                                          
+)
 ```
 * [Gauge Chart](http://epochjs.github.io/epoch/real-time/#gauge)
 ```scala
@@ -215,7 +215,49 @@ scalajs.dom.window.setInterval(
     chart.update(Math.random())                             
   },                                                        
   1000                                                      
-)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+)
 ```
+* [Heatmap Chart](http://epochjs.github.io/epoch/real-time/#heatmap)
+```scala
+import com.keivanabdi.scalajs.epochjs.chart.realtime.heatmap._                      
+                                                                                    
+def generateRandomValue(): Value = Value(                                           
+  time = System.currentTimeMillis(),                                                
+  histogram = Array                                                                 
+    .fill(1000) {                                                                   
+      val u = math.random()                                                         
+      val v = math.random()                                                         
+      ((math.sqrt(-2 * math.log(u)) * math.cos(2 * math.Pi * v)) * 12.5 + 50).toInt 
+    }                                                                               
+    .groupBy(x => x)                                                                
+    .mapValues(_.length)                                                            
+)        
 
+def generateRandomValues(n: Int): Seq[Value] = Seq.fill(n)(                         
+  generateRandomValue()                                                             
+)     
+
+val data1 = Data(                                                                   
+  label = "Layer 1",                                                                
+  values = generateRandomValues(n = 60)                                             
+)  
+
+val chart = jQuery("#realtime-heatmap-example") epoch Chart(                        
+  data = data1,                                                                     
+  buckets = Some(20),                                                               
+  bucketRange = Some(0, 100),                                                       
+  windowSize = Some(60),                                                            
+  axes = Some(Seq(Ax.left, Ax.bottom, Ax.right)),                                   
+  opacity = Some((v, max) => math.pow(v / max, 0.7))                                
+)                                                                                   
+                                                                                    
+scalajs.dom.window.setInterval(                                                     
+  () => {                                                                           
+    chart.push(                                                                     
+      generateRandomValue()                                                         
+    )                                                                               
+  },                                                                                
+  1000                                                                              
+)
+```
 *more examples to come ...*
