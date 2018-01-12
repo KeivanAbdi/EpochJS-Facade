@@ -260,4 +260,42 @@ scalajs.dom.window.setInterval(
   1000                                                                              
 )
 ```
-*more examples to come ...*
+* [Line Chart](http://epochjs.github.io/epoch/real-time/#line)
+```scala
+import com.keivanabdi.scalajs.epochjs.chart.realtime.line._ 
+                                                            
+def generateRandomValue(): Value = Value(                   
+  time = (System.currentTimeMillis() / 1000).toInt,         
+  y    = Math.random() * 100                                
+)                                                           
+                                                            
+def generateRandomValues(n: Int): Seq[Value] = Seq.fill(n)( 
+  generateRandomValue()                                     
+)                                                           
+                                                            
+val data1 = (                                               
+  Data(                                                     
+    label  = "Layer 1",                                     
+    values = generateRandomValues(n = 60)                   
+  ),                                                        
+  Data(                                                     
+    label  = "Layer 2",                                     
+    values = generateRandomValues(n = 60)                   
+  )                                                         
+)                                                           
+                                                            
+val chart = jQuery("#realtime-line-example") epoch Chart(   
+  data = data1,                                             
+  axes = Some(Seq(Ax.left, Ax.bottom, Ax.right))            
+)                                                           
+                                                            
+scalajs.dom.window.setInterval(                             
+  () => {                                                   
+    chart.push(                                             
+      generateRandomValue(), // Layer 1                     
+      generateRandomValue()  // Layer 2                     
+    )                                                       
+  },                                                        
+  1000                                                      
+)
+```
